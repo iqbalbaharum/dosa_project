@@ -1,0 +1,7 @@
+data ConfirmKill:
+    id: string
+    kill: f32
+    timestamp: string
+
+service DosaGameService("dosagameservice"):
+    add_point(id: string, kill: f32) -> string
