@@ -12,3 +12,8 @@ func user_level_up(id: string) -> string:
     on PEER via RELAY:
         res <- DosaGameService.level_up(id)
     <- res
+
+func user_data(id: string) -> string:
+    on PEER via RELAY:
+        res <- DosaGameService.get_latest_data(id)
+    <- res 

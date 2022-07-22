@@ -74,6 +74,17 @@ export class DosaGameService implements DosaGameServiceDef {
         })
     }
 
+    async get_latest_data(id: string): Promise<string> {
+        return new Promise(async (resolve, reject) => {
+            try {
+                let response = await this.bigchaindb.fetchLatestTransaction(id)
+                resolve(response as string)
+            } catch(e) {
+                reject(`ERROR: ${id} INVALID ASSET`)
+            }
+        })
+    }
+
     private async add_data_to_db(point: ConfirmKill) : Promise<string> {
         return new Promise(async (resolve, reject) => {
             const asset: any = await this.bigchaindb.fetchLatestTransaction(point.id)
