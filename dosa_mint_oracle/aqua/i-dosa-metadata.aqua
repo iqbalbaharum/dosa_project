@@ -1,0 +1,10 @@
+data NewMint:
+    id: string
+    address: string
+    blockNo: string
+
+service IDosaMetadataService("idosametadataservice"):
+    generate_metadata() -> string
+    get_latest_mint() -> []NewMint
+    mint_nft(mint: NewMint, metadata_uri: string) -> string
+

@@ -1,0 +1,10 @@
+import "./i-dosa-metadata.aqua"
+
+const PEER ?= "12D3KooWPBWYscDWmRwLChgpTZLS7u8KndXiMHubVVfsGqRW6Kn9"
+const RELAY ?= "12D3KooWSD5PToNiLQwKDXsu8JSysCwUt8BVUJEqCHcDe7P5h45e"
+
+func mint_listen():
+    on PEER via RELAY:
+        for mint <- IDosaMetadataService.get_latest_mint() par:
+            uri <- IDosaMetadataService.generate_metadata()
+            IDosaMetadataService.mint_nft(mint, uri)
