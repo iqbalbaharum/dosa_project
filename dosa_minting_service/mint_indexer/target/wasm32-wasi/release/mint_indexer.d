@@ -1,1 +1,0 @@
-/Users/iqbal/Projects/NodeJS/eth_global/dosa_minting_service/mint_indexer/target/wasm32-wasi/release/mint_indexer.wasm: /Users/iqbal/Projects/NodeJS/eth_global/dosa_minting_service/mint_indexer/src/main.rs

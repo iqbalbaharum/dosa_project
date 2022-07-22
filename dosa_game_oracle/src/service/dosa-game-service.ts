@@ -56,11 +56,29 @@ export class DosaGameService implements DosaGameServiceDef {
         return `VALIDATE ${id} ${kill} POINT`
     }
 
+    async level_up(id: string): Promise<string> {
+        return new Promise(async (resolve, reject) => {
+            const asset: any = await this.bigchaindb.fetchLatestTransaction(id)
+
+            if(asset.metadata.token.available >= asset.metadata.level.next_level) {
+                asset.metadata.token.available = asset.metadata.token.available - asset.metadata.level.next_level
+                asset.metadata.level.current++
+                asset.metadata.token.spent = asset.metadata.token.spent + asset.metadata.level.next_level
+
+                await this.bigchaindb.append(asset.id, asset.metadata)
+                
+                resolve(`SPENT ${id} ${asset.metadata.level.next_level} POINT`)
+            }
+
+            reject(`ERROR: ${id} NOT UPGRADABLE`)
+        })
+    }
+
     private async add_data_to_db(point: ConfirmKill) : Promise<string> {
         return new Promise(async (resolve, reject) => {
             const asset: any = await this.bigchaindb.fetchLatestTransaction(point.id)
 
-            if(!asset) { resolve('INVALID ASSET ID') }
+            if(!asset) { resolve('ERROR: INVALID ASSET ID') }
 
             const total_point = point.kill * 10
             asset.metadata.token.available += total_point

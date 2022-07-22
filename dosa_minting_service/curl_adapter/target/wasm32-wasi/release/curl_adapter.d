@@ -1,1 +1,0 @@
-/Users/iqbal/Projects/NodeJS/eth_global/dosa_minting_service/curl_adapter/target/wasm32-wasi/release/curl_adapter.wasm: /Users/iqbal/Projects/NodeJS/eth_global/dosa_minting_service/curl_adapter/src/main.rs

@@ -9,5 +9,5 @@ contracts
 #### Explorer (VueJS)
 dosa_explorer
 
-#### Dosa minting service (Fluence Network)
-dosa_minting_service
+#### Services (Fluence Network)
+dosa_mint_oracle

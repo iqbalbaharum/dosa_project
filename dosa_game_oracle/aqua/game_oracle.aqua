@@ -6,5 +6,9 @@ const RELAY ?= "12D3KooWSD5PToNiLQwKDXsu8JSysCwUt8BVUJEqCHcDe7P5h45e"
 func game_point(id: string, kill: f32) -> string:
     on PEER via RELAY:
         res <- DosaGameService.add_point(id, kill)
+    <- res
 
+func user_level_up(id: string) -> string:
+    on PEER via RELAY:
+        res <- DosaGameService.level_up(id)
     <- res

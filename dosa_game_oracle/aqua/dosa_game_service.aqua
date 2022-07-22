@@ -5,3 +5,4 @@ data ConfirmKill:
 
 service DosaGameService("dosagameservice"):
     add_point(id: string, kill: f32) -> string
+    level_up(id: string) -> string
