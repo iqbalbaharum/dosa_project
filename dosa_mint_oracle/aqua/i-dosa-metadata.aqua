@@ -1,5 +1,4 @@
 data NewMint:
-    id: string
     address: string
     blockNo: string
 

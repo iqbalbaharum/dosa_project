@@ -2,10 +2,9 @@ import { BigChainDbModule } from '../module';
 import { IDosaMetadataServiceDef } from '../_aqua/i-dosa-metadata';
 import axios from 'axios'
 import Web3 from 'web3'
-import * as nft721abi from '../data/DOSA1NFT_abi.json'
+import nft721abi from '../data/DOSA1NFT_abi.json'
 
 export interface NewMint {
-    id: string
     address: string
     blockNo: string
 }
@@ -82,7 +81,7 @@ export class DosaMetadataService implements IDosaMetadataServiceDef {
             data: {
                 query: `
                     query {
-                        baseNFTs(
+                        mintBurnMints (
                             orderBy: blockNo,
                             orderDirection: asc,
                             where: {
@@ -90,8 +89,7 @@ export class DosaMetadataService implements IDosaMetadataServiceDef {
                             },
                         ) {
                         id
-                        owner
-                        tokenId
+                        to
                         blockNo
                     }
                     }
@@ -101,39 +99,44 @@ export class DosaMetadataService implements IDosaMetadataServiceDef {
 
         let mints: NewMint[] = []
         let index = 0
-        for(const data of response.data.data.baseNFTs) {
+        for(const data of response.data.data.mintBurnMints) {
             mints.push({
-                id: data.tokenId,
-                address: data.owner,
+                address: data.to,
                 blockNo: data.blockNo
             })
-
-            if(index === (response.data.data.baseNFTs.length - 1)) {
-                this.last_processed_block = data.blockNo
-            } else {
-                index++
-            }
         }
 
         return mints
     }
 
-    async mint_nft(mint: NewMint, metadata_uri: string): Promise<any> {
-        console.log(mint.address)
+    async mint_nft(mint: NewMint, metadata_uri: string): Promise<string> {
         const web3 = new Web3(process.env.ETH_RPC_URL_HTTP as string)
-        const contract = new web3.eth.Contract(nft721abi as any, process.env.ADDRESS_NFT721 as string)
-        // add private key
-        web3.eth.accounts.wallet.add(process.env.ETH_PRIVATE_KEY as string)
-        // contract.setProvider(web3.currentProvider)
 
-        await contract.methods
+        try {
+            web3.eth.accounts.wallet.add(process.env.ETH_PRIVATE_KEY as string)
+            const contract = new web3.eth.Contract(nft721abi as any, process.env.ADDRESS_NFT721)
+
+            // var block = await web3.eth.getBlock("latest");
+            // var gasLimit = block.gasLimit/block.transactions.length;
+
+            // console.log(gasLimit)
+
+            await contract.methods
             .mint(mint.address, metadata_uri)
             .send({
                 from: process.env.ETH_PUBLIC_KEY as string,
                 to: process.env.ADDRESS_NFT721 as string,
-                gas: parseInt(process.env.GAS_FEE as string) ?? 300000
+                gasPrice: parseInt(process.env.GAS_FEE as string) ?? 300000,
+                gas: 5000000
             })
+        } catch(e) {
+            console.log(`MINT ERROR BLOCK ${mint.blockNo} ERROR ${e}`)
+            return `MINT ERROR BLOCK ${mint.blockNo} ERROR ${e}`
+        }
 
-            this.last_processed_block = mint.blockNo
+        this.last_processed_block = mint.blockNo
+        
+        console.log(`MINT ${mint.address} URI ${metadata_uri} LAST BLOCK ${this.last_processed_block}`)
+        return `MINT ${mint.address} URI ${metadata_uri} LAST BLOCK ${this.last_processed_block}`
     }
 }
