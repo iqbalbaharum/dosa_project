@@ -1,0 +1,18 @@
+data ConfirmKill:
+    id: string
+    kill: f32
+    timestamp: string
+
+data UserNFT:
+    address: string
+    tokenAddress: string
+    tokenId: f32
+    chainId: string
+    metadata: string
+
+service IDosaGameService("dosagameservice"):
+    add_point(id: string, kill: f32) -> string
+    level_up(id: string) -> string
+    get_user_rockets(address: string) -> []UserNFT
+    fetch_nft_token_uri(nft: UserNFT) -> UserNFT
+    fetch_nft_metadata(nft: UserNFT) -> UserNFT
