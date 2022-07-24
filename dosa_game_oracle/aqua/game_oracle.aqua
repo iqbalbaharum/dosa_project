@@ -1,6 +1,6 @@
 import "./i_dosa_game_service.aqua"
 
-const PEER ?= "12D3KooWPBWYscDWmRwLChgpTZLS7u8KndXiMHubVVfsGqRW6Kn9"
+const PEER ?= "12D3KooWFSNzBnzffSsByuNCKw3FDXrGe7MBEgPyeKUtzRmgDJXQ"
 const RELAY ?= "12D3KooWSD5PToNiLQwKDXsu8JSysCwUt8BVUJEqCHcDe7P5h45e"
 
 func fetch_user_rocket(address: string) -> []UserNFT:

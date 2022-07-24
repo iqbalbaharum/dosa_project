@@ -130,7 +130,7 @@ export class DosaGameService implements IDosaGameServiceDef {
             if(protocol[0] !== 'dosa') {
                 nft.metadata = '{}'
             } else {
-                let response: any = await this.bigchaindb.fetchLatestTransaction(protocol[1]) 
+                let response: any = await this.bigchaindb.fetchLatestTransaction(protocol[1])
                 nft.metadata = JSON.stringify(response.metadata)
             }
 
