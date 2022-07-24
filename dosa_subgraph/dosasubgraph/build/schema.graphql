@@ -1,0 +1,80 @@
+type BaseNFT @entity {
+  id: ID!
+  owner: Bytes! # address
+  tokenId: BigInt!
+  blockNo: BigInt!
+}
+
+type BaseNFTTransfer @entity {
+  id: ID!
+  from: Bytes! # address
+  to: Bytes! # address
+  tokenId: BigInt!
+  blockNo: BigInt!
+}
+
+type MintBurnMint @entity {
+  id: ID!
+  to: Bytes! # address
+  amount: BigInt!
+  blockNo: BigInt!
+}
+
+type MintBurnTopup @entity {
+  id: ID!
+  to: Bytes! # address
+  amount: BigInt!
+  blockNo: BigInt!
+}
+
+type MintBurnCashOut @entity {
+  id: ID!
+  to: Bytes! # address
+  tokenId: BigInt!
+  blockNo: BigInt!
+}
+
+type SlotMint @entity {
+  id: ID!
+  from: Bytes! # address
+  to: Bytes! # address
+  tokenId: BigInt!
+  blockNo: BigInt!
+}
+
+type SlotBurn @entity {
+  id: ID!
+  from: Bytes! # address
+  to: Bytes! # address
+  tokenId: BigInt!
+  blockNo: BigInt!
+}
+
+type ConsumablesMint @entity {
+  id: ID!
+  operator: Bytes! # address
+  from: Bytes! # address
+  to: Bytes! # address
+  tokenId: BigInt!
+  value: BigInt!
+  blockNo: BigInt!
+}
+
+type ConsumablesBurn @entity {
+  id: ID!
+  operator: Bytes! # address
+  from: Bytes! # address
+  to: Bytes! # address
+  tokenId: BigInt!
+  value: BigInt!
+  blockNo: BigInt!
+}
+
+type MergeNFT @entity {
+  id: ID!
+  baseAddress: Bytes! # address
+  baseTokenId: BigInt!
+  consumableAddress: Bytes! # address
+  consumableTokenId: BigInt!
+  blockNo: BigInt!
+}
