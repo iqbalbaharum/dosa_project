@@ -1,0 +1,33 @@
+data ConfirmKill:
+    id: string
+    kill: f32
+    timestamp: string
+
+data UserNFT:
+    address: string
+    tokenAddress: string
+    tokenId: f32
+    chainId: string
+    metadata: string
+
+service IDosaGameService:
+    add_point(id: string, kill: f32) -> string
+    level_up(id: string) -> string
+    get_user_rockets(address: string) -> []UserNFT
+    fetch_nft_token_uri(nft: UserNFT) -> UserNFT
+    fetch_nft_metadata(nft: UserNFT) -> UserNFT
+
+const PEER ?= "12D3KooWR2Fcs8KLsrNhULeUgn9d9totR14FEnaVqJZC7ESrRfZA"
+const RELAY ?= "12D3KooWSD5PToNiLQwKDXsu8JSysCwUt8BVUJEqCHcDe7P5h45e"
+const SERVICE_ID ?= "dosagameservice"
+
+func fetch_user_rocket(address: string) -> []UserNFT:
+    nfts: *UserNFT
+    on PEER via RELAY:
+        IDosaGameService SERVICE_ID
+        rockets <- IDosaGameService.get_user_rockets(address)
+        for rocket <- rockets:
+            rocketWithUrl <- IDosaGameService.fetch_nft_token_uri(rocket)
+            nfts <- IDosaGameService.fetch_nft_metadata(rocketWithUrl)
+    <- nfts
+    
