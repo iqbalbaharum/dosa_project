@@ -1,0 +1,68 @@
+{
+  "name": "phaser3-parcel-template",
+  "version": "1.0.0",
+  "description": "A template project for Phaser3 using Parceljs",
+  "scripts": {
+    "peer": "nodemon src/server/server.js",
+    "start": "parcel src/index.html -p 8000",
+    "build": "parcel build src/index.html --out-dir dist",
+    "build-gh": "parcel build src/index.html --out-dir dist --public-url /asteroids-template-phaser/",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "supertommy",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ourcade/phaser3-parcel-template.git"
+  },
+  "homepage": "https://github.com/ourcade/phaser3-parcel-template",
+  "devDependencies": {
+    "parcel-plugin-clean-easy": "^1.0.2",
+    "parcel-plugin-static-files-copy": "^2.2.1",
+    "tslib": "^1.11.1",
+    "typescript": "^3.8.3"
+  },
+  "dependencies": {
+    "@chainsafe/libp2p-noise": "^7.0.1",
+    "@libp2p/bootstrap": "^2.0.0",
+    "@libp2p/floodsub": "^3.0.2",
+    "@libp2p/mplex": "^4.0.1",
+    "@libp2p/tcp": "^3.0.2",
+    "@libp2p/webrtc-star": "^3.0.0",
+    "@libp2p/websockets": "^3.0.1",
+    "@types/lodash": "^4.14.149",
+    "@types/node": "^18.0.6",
+    "@walletconnect/web3-provider": "^1.7.8",
+    "express": "^4.18.1",
+    "http": "^0.0.1-security",
+    "jsx-dom": "^6.4.11",
+    "libp2p": "^0.37.3",
+    "libp2p-gossipsub": "^0.13.0",
+    "lodash": "^4.17.15",
+    "matter": "^0.2.0",
+    "nodemon": "^2.0.19",
+    "peer": "^0.6.1",
+    "peerjs": "^1.4.6",
+    "phaser": "^3.22.0",
+    "regenerator-runtime": "^0.13.9",
+    "socket.io": "^4.5.1",
+    "socket.io-client": "^4.5.1",
+    "uuidv4": "^6.2.13",
+    "web3": "^1.7.4",
+    "web3modal": "^1.9.8",
+    "webfontloader": "^1.6.28"
+  },
+  "parcelCleanPaths": [
+    "dist"
+  ],
+  "staticFiles": {
+    "staticPath": "public",
+    "watcherGlob": "**"
+  },
+  "browserslist": [
+    "last 1 Chrome versions"
+  ],
+  "alias": {
+    "@": "./src"
+  }
+}
