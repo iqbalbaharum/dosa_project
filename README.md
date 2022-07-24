@@ -3,6 +3,7 @@ Introduction
 
 DOSA Rocket Game is a play-to-earn game that introduce nested & mutable NFT concept. The game concept are like below:
 
+- Multiplayer game
 - User can change & buy skin or ammo.
 - User can cashout to DOSA coin when reach certain points.
 - User can topup point to upgrade the rocket to next level
