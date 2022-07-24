@@ -21,6 +21,7 @@ Technologies
 - Alchemy
 - Socket IO
 - Phaser
+- Polygon Mumbai
 
 Files
 -----
