@@ -1,0 +1,33 @@
+import "@fluencelabs/aqua-lib/builtin.aqua"
+
+const PEER ?= "12D3KooWPBWYscDWmRwLChgpTZLS7u8KndXiMHubVVfsGqRW6Kn9"
+const RELAY ?= "12D3KooWSD5PToNiLQwKDXsu8JSysCwUt8BVUJEqCHcDe7P5h45e"
+const DOSAGAMESERVICE ?= "dosagameservice"
+
+data ConfirmKill:
+    id: string
+    kill: f32
+    timestamp: string
+
+service DosaGameService:
+    add_point(id: string, kill: f32) -> string
+    level_up(id: string) -> string
+    get_latest_data(id: string) -> string
+
+func game_point(id: string, kill: f32) -> string:
+    on PEER via RELAY:
+        DosaGameService DOSAGAMESERVICE
+        res <- DosaGameService.add_point(id, kill)
+    <- res
+
+func user_level_up(id: string) -> string:
+    on PEER via RELAY:
+        DosaGameService DOSAGAMESERVICE
+        res <- DosaGameService.level_up(id)
+    <- res
+
+func user_data(id: string) -> string:
+    on PEER via RELAY:
+        DosaGameService DOSAGAMESERVICE
+        res <- DosaGameService.get_latest_data(id)
+    <- res 

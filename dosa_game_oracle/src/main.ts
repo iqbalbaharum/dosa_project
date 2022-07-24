@@ -4,7 +4,7 @@ import { registerIDosaGameService } from './_aqua/i_dosa_game_service';
 import { DosaGameService } from './service/dosa-game-service';
 
 const relay = krasnodar[0];
-const skBytes = 'OF/ysOa5oFCCoZ8iikFSeVde++VZ1rHXMh1Q1MBX8oI=';
+const skBytes = '5iaBQAikDPqm9dSMYegqQxZpGJDJLiVn5BOF/7XfJPY=';
 
 export async function runServer() {
     await Fluence.start({

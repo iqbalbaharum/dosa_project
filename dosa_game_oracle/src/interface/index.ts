@@ -15,3 +15,10 @@ export interface UserNFT {
   tokenAddress: string
   tokenId: number
 }
+
+export interface DosaNFT {
+  address: string
+  id: string
+  hash: string
+  metadata: string
+}

@@ -1,0 +1,83 @@
+{
+    "name": "getting-started-browser",
+    "version": "0.1.0",
+    "private": true,
+    "dependencies": {
+        "@fluencelabs/fluence": "^0.23.1",
+        "@fluencelabs/fluence-network-environment": "^1.0.13",
+        "@testing-library/jest-dom": "^5.14.1",
+        "@testing-library/react": "^11.2.7",
+        "@testing-library/user-event": "^12.8.3",
+        "@types/jest": "^27.4.0",
+        "@types/node": "^12.20.16",
+        "@types/react": "^17.0.14",
+        "@types/react-dom": "^17.0.9",
+        "@walletconnect/web3-provider": "^1.7.8",
+        "jsx-dom": "^8.0.1-beta.8",
+        "lodash": "^4.17.21",
+        "peer": "^0.6.1",
+        "peerjs": "^1.4.6",
+        "phaser": "^3.55.2",
+        "react": "^17.0.2",
+        "react-dom": "^17.0.2",
+        "react-scripts": "^4.0.3",
+        "socket.io": "^4.5.1",
+        "socket.io-client": "^4.5.1",
+        "typescript": "^4.6.3",
+        "uuidv4": "^6.2.13",
+        "web-vitals": "^1.1.2",
+        "web3": "^1.7.4",
+        "web3modal": "^1.9.8",
+        "webfontloader": "^1.6.28"
+    },
+    "scripts": {
+        "postinstall": "copy-marine public",
+        "prestart": "npm run compile-aqua",
+        "prebuild": "npm run compile-aqua",
+        "start": "react-scripts start",
+        "build": "react-scripts build",
+        "test": "jest --config=jest.config.js",
+        "_test": "react-scripts test",
+        "eject": "react-scripts eject",
+        "compile-aqua": "aqua -i ./aqua/ -o ./src/_aqua",
+        "watch-aqua": "chokidar \"**/*.aqua\" -c \"npm run compile-aqua\""
+    },
+    "eslintConfig": {
+        "extends": [
+            "react-app",
+            "react-app/jest"
+        ]
+    },
+    "staticFiles": {
+        "staticPath": "public",
+        "watcherGlob": "**"
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all",
+            "not ie 11",
+            "not android 4.4.3-4.4.4"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    },
+    "devDependencies": {
+        "@fluencelabs/aqua": "^0.7.2-314",
+        "@fluencelabs/aqua-lib": "^0.5.1",
+        "@types/jest-environment-puppeteer": "^4.4.1",
+        "@types/puppeteer": "^5.4.4",
+        "@types/serve-handler": "^6.1.1",
+        "chokidar-cli": "^2.1.0",
+        "jest-puppeteer": "^6.0.2",
+        "node-sass": "^6.0.1",
+        "serve": "^13.0.2"
+    },
+    "alias": {
+        "@": "./src"
+    }
+}

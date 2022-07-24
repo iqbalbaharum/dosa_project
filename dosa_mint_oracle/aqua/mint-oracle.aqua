@@ -3,8 +3,20 @@ import "./i-dosa-metadata.aqua"
 const PEER ?= "12D3KooWPBWYscDWmRwLChgpTZLS7u8KndXiMHubVVfsGqRW6Kn9"
 const RELAY ?= "12D3KooWSD5PToNiLQwKDXsu8JSysCwUt8BVUJEqCHcDe7P5h45e"
 
+const GAME_SERVICE_PEER ?= "12D3KooWR2Fcs8KLsrNhULeUgn9d9totR14FEnaVqJZC7ESrRfZA"
+const GAME_SERVICE_ID ?= "dosagameservice"
+
 func mint_listen():
     on PEER via RELAY:
         for mint <- IDosaMetadataService.get_latest_mint() par:
             uri <- IDosaMetadataService.generate_metadata()
             IDosaMetadataService.mint_nft(mint, uri)
+
+func merge_listen():
+    on PEER via RELAY:
+        for merge <- IDosaMetadataService.get_latest_merge() par:
+            on GAME_SERVICE_PEER via RELAY:
+                IDosaGameService GAME_SERVICE_ID
+                baseNft <- IDosaGameService.fetch_dosa_nft_metadata(merge.baseAddress, merge.baseTokenId)
+                slotNft <- IDosaGameService.fetch_nft_metadata_from_ipfs(merge.consumableAddress, merge.consumableTokenId)
+                IDosaGameService.consume_nft(baseNft, slotNft)

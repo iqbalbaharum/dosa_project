@@ -1,0 +1,7 @@
+data Log:
+    address: string
+    description: string
+
+service IDosaLogService("idosalogservice"):
+    add_log(log: string)
+

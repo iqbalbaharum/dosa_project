@@ -10,7 +10,6 @@ export class BigChainDbModule {
     async fetchLatestTransaction(assetId: string) : Promise<object | unknown> {
         try {
             const transaction_data = await this.connection.listTransactions(assetId)
-            console.log(assetId, transaction_data)
             return transaction_data[transaction_data.length - 1]
         } catch (error) {
             console.log(error)

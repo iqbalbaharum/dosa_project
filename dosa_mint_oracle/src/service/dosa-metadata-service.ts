@@ -9,14 +9,25 @@ export interface NewMint {
     blockNo: string
 }
 
+export interface NewMerge {
+    id: string
+    baseAddress: string
+    baseTokenId: string
+    consumableAddress: string
+    consumableTokenId: string
+    blockNo: string
+}
+
 export class DosaMetadataService implements IDosaMetadataServiceDef {
     private bigchaindb: BigChainDbModule;
 
     private last_processed_block: String
+    private last_merge_processed_block: String
 
     constructor() {
         this.bigchaindb = new BigChainDbModule();
         this.last_processed_block = `${process.env.LAST_PROCESSED_BLOCK}`
+        this.last_merge_processed_block = `${process.env.LAST_MERGE_PROCESSED_BLOCK}`
     }
 
     /**
@@ -104,6 +115,53 @@ export class DosaMetadataService implements IDosaMetadataServiceDef {
                 address: data.to,
                 blockNo: data.blockNo
             })
+        }
+
+        return mints
+    }
+
+    async get_latest_merge(): Promise<NewMerge[]> {
+        const response = await axios({
+            url: process.env.THEGRAPH_URL,
+            method: 'post',
+            data: {
+                query: `
+                    query {
+                        mergeNFTs (
+                            orderBy: blockNo,
+                            orderDirection: asc,
+                            where: {
+                                blockNo_gt: ${this.last_merge_processed_block}
+                            },
+                        ) {
+                            id
+                            baseAddress
+                            baseTokenId
+                            consumableAddress
+                            consumableTokenId
+                    }
+                    }
+                `
+            }
+        })
+
+        let mints: NewMerge[] = []
+        let index = 0
+        for(const data of response.data.data.mergeNFTs) {
+            mints.push({
+                id: data.id,
+                baseAddress: data.baseAddress,
+                baseTokenId: data.baseTokenId,
+                consumableAddress: data.consumableAddress,
+                consumableTokenId: data.consumableTokenId,
+                blockNo: data.blockNo
+            })
+
+            if(index < response.data.data.mergeNFTs.length - 1) {
+                this.last_merge_processed_block = data.blockNo
+            }
+
+            index++
         }
 
         return mints

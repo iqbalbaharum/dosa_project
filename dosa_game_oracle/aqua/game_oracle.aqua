@@ -1,6 +1,6 @@
 import "./i_dosa_game_service.aqua"
 
-const PEER ?= "12D3KooWFSNzBnzffSsByuNCKw3FDXrGe7MBEgPyeKUtzRmgDJXQ"
+const PEER ?= "12D3KooWR2Fcs8KLsrNhULeUgn9d9totR14FEnaVqJZC7ESrRfZA"
 const RELAY ?= "12D3KooWSD5PToNiLQwKDXsu8JSysCwUt8BVUJEqCHcDe7P5h45e"
 
 func fetch_user_rocket(address: string) -> []UserNFT:
@@ -11,4 +11,3 @@ func fetch_user_rocket(address: string) -> []UserNFT:
             rocketWithUrl <- IDosaGameService.fetch_nft_token_uri(rocket)
             nfts <- IDosaGameService.fetch_nft_metadata(rocketWithUrl)
     <- nfts
-    

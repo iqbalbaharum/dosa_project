@@ -2,8 +2,42 @@ data NewMint:
     address: string
     blockNo: string
 
+data NewMerge:
+    id: string
+    baseAddress: string
+    baseTokenId: string
+    consumableAddress: string
+    consumableTokenId: string
+    blockNo: string
+
 service IDosaMetadataService("idosametadataservice"):
     generate_metadata() -> string
     get_latest_mint() -> []NewMint
     mint_nft(mint: NewMint, metadata_uri: string) -> string
+    -- merge listen
+    get_latest_merge() -> []NewMerge
+
+data UserNFT:
+    address: string
+    tokenAddress: string
+    tokenId: f32
+    chainId: string
+    metadata: string
+
+data DosaNFT:
+    address: string
+    id: string
+    hash: string
+    metadata: string
+
+service IDosaGameService:
+    add_point(id: string, kill: f32) -> string
+    level_up(id: string) -> string
+    get_user_rockets(address: string) -> []UserNFT
+    fetch_nft_token_uri(nft: UserNFT) -> UserNFT
+    fetch_nft_metadata(nft: UserNFT) -> UserNFT
+    fetch_dosa_nft_metadata(address: string, id: string) -> DosaNFT
+    fetch_nft_metadata_from_ipfs(address: string, id: string) -> DosaNFT
+    consume_nft(base: DosaNFT, slot: DosaNFT) -> string
+
 
